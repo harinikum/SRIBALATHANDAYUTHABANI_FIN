@@ -31,8 +31,7 @@ export const getMonthSelection = async({values={}, setValues=()=>{}, setLoading=
     {
         month: month,
         year: year,
-        agent_id: values.agentId,
-        collector_id: values.collectorId
+        agent_id: values.agentId
     }
 )
     if(onGenerate.data.message == "success"){

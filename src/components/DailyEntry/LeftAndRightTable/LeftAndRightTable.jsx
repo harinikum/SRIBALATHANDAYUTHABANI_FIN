@@ -23,10 +23,10 @@ const LeftAndRightTable = () => {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const [values, setValues] = useState({
-      agent : "",
-      collectorName : "",
-      agentId : null,
-      collectorId : null,
+      agent : "All",
+      collectorName : "All",
+      agentId : 0,
+      collectorId : 0,
       month : getCurrentMonth()
   });
 
@@ -35,6 +35,8 @@ const LeftAndRightTable = () => {
     let email = localStorage.getItem('user_id');
     let isSuper = getCredintials().isSuperAdmin;
     let agentId = 0;
+    let agentName = "All";
+    let collectorName = "All";
     let month = null;
     let year = null;
     let currentM = getCurrentMonth();
@@ -44,28 +46,28 @@ const LeftAndRightTable = () => {
         month = yearAndMonth[1];
     }
 
-    const getAgent = await apiFunction(endPointURLs.getParticularAgent,"POST",{email_id : email})
-    if(getAgent?.data?.message == "success" && getAgent?.data?.data?.length > 0){
-      agentId = getAgent.data.data[0]['id'];
-      setValues({
-        agent : getAgent.data.data[0]['Agent Name'],
-        collectorName : getAgent.data.data[0]['Agent Name'],
-        agentId : getAgent.data.data[0]['id'],
-        collectorId : getAgent.data.data[0]['id'],
-        month : currentM
-      })
-    } else if(isSuper == "true") {
+    if (isSuper === "true") {
       agentId = 0;
-      setValues({
-        agent : "All",
-        collectorName : "All",
-        agentId : 0,
-        collectorId : 0,
-        month : currentM
-      })
+      agentName = "All";
+      collectorName = "All";
+    } else {
+      const getAgent = await apiFunction(endPointURLs.getParticularAgent,"POST",{email_id : email});
+      if(getAgent?.data?.message == "success" && getAgent?.data?.data?.length > 0){
+        agentId = getAgent.data.data[0]['id'];
+        agentName = getAgent.data.data[0]['Agent Name'];
+        collectorName = getAgent.data.data[0]['Agent Name'];
+      }
     }
 
-    const res = await apiFunction(endPointURLs.getPayments, "POST", {agent_id : agentId, month: month, year: year})
+    setValues({
+      agent : agentName,
+      collectorName : collectorName,
+      agentId : agentId,
+      collectorId : agentId,
+      month : currentM
+    });
+
+    const res = await apiFunction(endPointURLs.getPayments, "POST", {agent_id : agentId, month: month, year: year});
     if(res?.data?.message == "success"){
       const apiData = res?.data?.data || [];
       console.log("GET_PAYMENTS_RESPONSE:", apiData);
