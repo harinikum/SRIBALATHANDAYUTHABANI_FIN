@@ -20,9 +20,12 @@ const AddEmiLeft = ({loading, setLoading=()=>{},values = {},setValues = () => {}
           try{
               const res = await apiFunction(endPointURLs.insertEmi,"POST",{agent_id : values.agentId, place : values.place,loan_amount : values.loanAmount,balance_amount : values.balanceAmount, date_of_loan : values.dateOfLoan, note_id : values.noteId, emi_amount : values.emiAmount, id : values.id, area : values.area });
               if(res.data.message == "Successfully Added"){
-                  setIsSuccess(true)
-                  setValues({agentId : values.agentId})
-                  setMsg("Successfully Added")
+                  setIsSuccess(true);
+                  if (setDatas && Array.isArray(datas)) {
+                    setDatas(datas.filter((item) => item.id !== values.id));
+                  }
+                  setValues({agentId : values.agentId, agent: values.agent});
+                  setMsg("Successfully Added");
               }
               else{
                   setisError(true);
