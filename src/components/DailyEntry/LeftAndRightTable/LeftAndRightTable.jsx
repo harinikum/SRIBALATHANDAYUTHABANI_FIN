@@ -4,7 +4,7 @@ import DailyEntryRight from "./Right/DailyEntryRight";
 import { apiFunction } from "../../../Api/ApiFunction";
 import { endPointURLs } from "../../../Api/endPoints";
 import BouncingDots from "../../../common/Loader/BouncingDots";
-import { getMonthSelection, insertPaymentsHandler } from "../functions";
+import { filterActiveMembers, getMonthSelection, insertPaymentsHandler } from "../functions";
 import SnackbarAlert from "../../../common/Alert/SnackbarAlert/SnackBarAlert";
 import { changeDateFormat, changeDateYYMMDD, getCurrentMonth, isValidDate } from "../../../utils/dateFunctions/dateFunctions";
 import PopUpAlert from "../../../common/Alert/Popups/PopupAlert";
@@ -72,8 +72,9 @@ const LeftAndRightTable = () => {
       const apiData = res?.data?.data || [];
       console.log("GET_PAYMENTS_RESPONSE:", apiData);
       console.log("API DATA LENGTH:", apiData.length);
-      setDatas(apiData);
-      setorginallDatas(apiData);
+      const filtered = filterActiveMembers(apiData);
+      setDatas(filtered);
+      setorginallDatas(filtered);
     }
     setLoading(false);
   }

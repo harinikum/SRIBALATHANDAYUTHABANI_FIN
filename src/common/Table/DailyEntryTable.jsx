@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+﻿import React, { useRef, useState } from "react";
 import "./Table.css";
 import { dummyEmiDatas } from "./dummyDatas";
 import {
@@ -333,7 +333,12 @@ function DailyEntryTable({
         <tbody>
           {loading && <div className="table-body-load"></div>}
                     {tableDatas.map((row, i) => {
-                       console.log("Daily Entry Row:", row);
+            if (!isTotalRow(i)) {
+              const rawBal = row['Balance Amount'] ?? row.balance_amount ?? row.Balance; const balNum = typeof rawBal === 'string' ? parseFloat(rawBal.replace(/,/g, '').trim()) : Number(rawBal); const bal = isNaN(balNum) ? 0 : balNum;
+              const isFin = Number(row.hideIsFinished ?? row.is_finished ?? 0);
+              if (bal <= 0 || isFin === 1) return null;
+            }
+            console.log("Daily Entry Row:", row);
             return (
               <tr className="body-tr" key={i} onClick={() => {
                 if (isTotalRow(i)) return; // Don't trigger member lookup for total row

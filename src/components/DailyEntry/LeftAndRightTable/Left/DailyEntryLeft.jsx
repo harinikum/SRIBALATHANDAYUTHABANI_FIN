@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import './dailyLeft.css'
 import Select from '../../../../common/Form/Select/Select'
 import Button from '../../../../common/Form/Buttton/Button'
@@ -35,39 +35,25 @@ const DailyEntryLeft = ({values={}, setValues=()=>{}, onGetMonthSelection=()=>{}
   const onChangeHandler = async(e)=>{
     let value = e.target.value;
     let name = e.target.name;
-    // console.log(e);
     
     if(name == "agent"){
-      // console.log(value);
-      
-      // const agentAPi = await apiFunction(endPointURLs.getAgentNamesAndAreas,"POST",{search_term : value,limit : 10});
-      // if(agentAPi.data.message == "success"){
-      //   setAgents(agentAPi.data.data);
-      // }
-      let isExists = agents.find((val)=>val.name.toLowerCase() == value.toLowerCase());
-      
-      if(isExists){
-        setValues({...values, [name] : value, agentId : isExists.id})
-      }
-      else{
-        setValues({...values, [name] : value, agentId : null,})
-      }
+      let isExists = agents.find((val)=>val.name.toLowerCase() == (value || "").toLowerCase());
+      setValues(prev => ({
+        ...prev,
+        [name] : value,
+        agentId : isExists ? isExists.id : ((value || "").toLowerCase() === "all" ? 0 : null)
+      }));
     }
     else if(name == "collectorName"){
-      // const collectorAPi = await apiFunction(endPointURLs.getAgentNamesAndAreas,"POST",{search_term : value,limit : 10});
-      // if(collectorAPi.data.message == "success"){
-      //   setCollectors(collectorAPi.data.data);
-      // }
-      let isExists = agents.find((val)=>val.name.toLowerCase() == value.toLowerCase());
-      if(isExists){
-        setValues({...values, [name] : value, collectorId : isExists.id});
-      }
-      else{
-        setValues({...values, [name] : value, collectorId : null});
-      }
+      let isExists = collectors.find((val)=>val.name.toLowerCase() == (value || "").toLowerCase()) || agents.find((val)=>val.name.toLowerCase() == (value || "").toLowerCase());
+      setValues(prev => ({
+        ...prev,
+        [name] : value,
+        collectorId : isExists ? isExists.id : ((value || "").toLowerCase() === "all" ? 0 : null)
+      }));
     }
-    else if(name != "collectorName"){
-      setValues({...values, [name] : value});
+    else {
+      setValues(prev => ({...prev, [name] : value}));
     }
   }
 
