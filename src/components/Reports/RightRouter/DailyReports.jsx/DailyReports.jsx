@@ -160,18 +160,18 @@ const DailyReports = ({datas=[], setDatas=()=>{}, loading, setLoading}) => {
           <Button disabled={loading} className={'primary-btn'} onClick={onGenerate}>Generate</Button>
         </div>
       </div>
-      <div className="metrics-container">
-        <div className="metric-card">
-          <div className="metric-title">Cash Collection</div>
-          <div className="metric-value">₹ {cashTotal}</div>
+      <div className="metrics-container text-metrics">
+        <div className="metric-item">
+          <span className="metric-title">Cash Collection:</span>
+          <span className="metric-value">₹ {cashTotal}</span>
         </div>
-        <div className="metric-card">
-          <div className="metric-title">GPay Collection</div>
-          <div className="metric-value">₹ {gpayTotal}</div>
+        <div className="metric-item">
+          <span className="metric-title">GPay Collection:</span>
+          <span className="metric-value">₹ {gpayTotal}</span>
         </div>
-        <div className="metric-card">
-          <div className="metric-title">Grand Total</div>
-          <div className="metric-value">₹ {totAmount}</div>
+        <div className="metric-item">
+          <span className="metric-title">Total:</span>
+          <span className="metric-value">₹ {totAmount}</span>
         </div>
       </div>
       <br />

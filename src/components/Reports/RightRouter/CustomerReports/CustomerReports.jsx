@@ -246,8 +246,11 @@ const CustomerReports = ({datas=[], setDatas=()=>{}, loading, setLoading}) => {
         </div>
       </div>
       <br />
-      <div>
-        <LabelAndInput label={'Total Amount'} value={totAmount} disabled={true}/>
+      <div className="report-text-summary">
+        <div className="report-summary-row report-summary-total">
+          <span className="report-summary-label">Total Amount :</span>
+          <span className="report-summary-val">₹ {totAmount}</span>
+        </div>
       </div>
       <br />
       <div style={{display:"flex",justifyContent:"center"}}>

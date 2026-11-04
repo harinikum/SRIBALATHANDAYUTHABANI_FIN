@@ -1,84 +1,311 @@
-.reports-container{
+/* ============================================================
+   Reports Page Styles - Side-by-Side Mobile & Desktop
+   ============================================================ */
+
+.reports-container {
     display: flex;
+    flex-direction: row;
     height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-color: var(--primary, #f5f5f5);
 }
 
-.reports-left{
-    border: 1px solid;
-    width: 70vw;
+/* --------------------
+   Left Side: Table
+   -------------------- */
+.reports-left {
+    border-right: 1px solid #777777;
+    width: 62vw;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-color: #ffffff;
 }
 
-.reports-right{
-    width: 30vw;
-}
-.reports-right-btns{
-    border: 1px solid;
+.reports-left .table-container {
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
-.two-btns{
+.reports-left table {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+}
+
+.reports-left th,
+.reports-left td {
+    padding: 6px 8px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+/* --------------------
+   Right Side: Controls
+   -------------------- */
+.reports-right {
+    width: 38vw;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #ffffff;
+}
+
+.reports-right-btns {
+    border-bottom: 1px solid #777777;
+    background-color: #f8fafc;
+}
+
+.two-btns {
     display: flex;
+    width: 100%;
 }
-.report-btn,.report-btn-selected{
+
+.report-btn,
+.report-btn-selected {
     flex: 1;
     text-align: center;
-    border: 1px solid black;
+    border: 1px solid #777777;
+    cursor: pointer;
+    font-size: 0.75rem;
+    padding: 5px 2px;
+    font-weight: 600;
+    user-select: none;
+    box-sizing: border-box;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.report-btn {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.report-btn:hover {
+    background-color: #eef2f6;
+}
+
+.report-btn-selected {
+    background-color: var(--secondary, #3a7bd5);
+    color: #ffffff;
+    border-color: var(--secondary, #3a7bd5);
+}
+
+.wise-reports {
+    padding: 8px 6px;
+    box-sizing: border-box;
+}
+
+.reports-heading {
+    color: var(--secondary, #3a7bd5);
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-align: center;
+    margin: 6px 0 10px 0;
+}
+
+.daily-reports-radios {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+
+.daily-reports-radios div {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.75rem;
     cursor: pointer;
 }
-.report-btn-selected{
-    background-color: var(--secondary);
-    color: white;
+
+.daily-reports-radios input[type="radio"] {
+    width: 14px;
+    height: 14px;
+    margin: 0;
+    cursor: pointer;
+    accent-color: var(--secondary, #3a7bd5);
 }
 
+.daily-reports-radios label {
+    cursor: pointer;
+}
 
-.wise-reports{
-    padding: 0px 10px;
-}
-.reports-heading{
-    color: var(--secondary);
-    font-weight: bolder;
-    text-align: center;
-}
-.daily-reports-radios{
+.daily-reports-inputs {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    flex-direction: column;
+    gap: 8px;
 }
 
-
-.metrics-container {
+.daily-reports-inputs .label-and-input {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    gap: 15px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    font-size: 0.78rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.metric-card {
-    background: linear-gradient(135deg, var(--secondary, #3a7bd5) 0%, #3a6073 100%);
-    color: white;
-    padding: 15px 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    flex: 1;
-    text-align: center;
-    transition: transform 0.2s ease;
+.daily-reports-inputs .lab-input {
+    width: 58%;
+    padding: 3px 5px;
+    font-size: 0.78rem;
+    box-sizing: border-box;
 }
 
-.metric-card:hover {
-    transform: translateY(-5px);
+/* ------------------------------------------------------------
+   Metrics: Cash Collection, GPay Collection, Total (Pure Text)
+   NO boxes, NO cards, NO background, NO box-shadow.
+   Text one by one vertically.
+   ------------------------------------------------------------ */
+.metrics-container,
+.metrics-container.text-metrics {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 5px !important;
+    margin: 10px 0 !important;
+    padding: 6px 4px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+.metric-item {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 6px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 3px 0 !important;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.12) !important;
+}
+
+.metric-item:last-child {
+    border-bottom: 2px solid var(--secondary, #3a7bd5) !important;
+    padding-top: 5px !important;
 }
 
 .metric-title {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.9;
-    margin-bottom: 8px;
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    color: #333333 !important;
+    margin: 0 !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+    white-space: nowrap !important;
 }
 
 .metric-value {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    color: var(--secondary, #3a7bd5) !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
 }
 
+.metric-item:last-child .metric-title {
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    color: #111111 !important;
+}
+
+.metric-item:last-child .metric-value {
+    font-size: 0.98rem !important;
+    font-weight: 800 !important;
+    color: #0b7a3e !important;
+}
+
+/* ------------------------------------------------------------
+   Desktop View Adjustments (min-width: 769px)
+   ------------------------------------------------------------ */
+@media screen and (min-width: 769px) {
+    .reports-left {
+        width: 70vw;
+    }
+
+    .reports-right {
+        width: 30vw;
+    }
+
+    .reports-left th,
+    .reports-left td {
+        padding: 8px 12px;
+        font-size: 0.88rem;
+    }
+
+    .report-btn,
+    .report-btn-selected {
+        padding: 9px 4px;
+        font-size: 0.9rem;
+    }
+
+    .wise-reports {
+        padding: 16px;
+    }
+
+    .reports-heading {
+        font-size: 1.15rem;
+        margin: 10px 0 15px 0;
+    }
+
+    .daily-reports-radios {
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .daily-reports-radios div {
+        font-size: 0.95rem;
+    }
+
+    .daily-reports-inputs {
+        gap: 12px;
+    }
+
+    .daily-reports-inputs .label-and-input {
+        font-size: 0.9rem;
+    }
+
+    .daily-reports-inputs .lab-input {
+        width: 50%;
+        padding: 5px 8px;
+        font-size: 0.9rem;
+    }
+
+    .metrics-container,
+    .metrics-container.text-metrics {
+        padding: 8px 10px !important;
+        margin: 16px 0 !important;
+        gap: 8px !important;
+    }
+
+    .metric-item {
+        padding: 5px 0 !important;
+    }
+
+    .metric-title {
+        font-size: 0.92rem !important;
+    }
+
+    .metric-value {
+        font-size: 1.05rem !important;
+    }
+
+    .metric-item:last-child .metric-title {
+        font-size: 0.98rem !important;
+    }
+
+    .metric-item:last-child .metric-value {
+        font-size: 1.2rem !important;
+    }
+}
